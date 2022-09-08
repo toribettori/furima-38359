@@ -20,12 +20,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    if @item.purchase.present?
-      redirect_to root_path
-    end
   end
 
   def edit
+    if @item.purchase.present?
+      redirect_to root_path
+    end
   end
   
   def update
