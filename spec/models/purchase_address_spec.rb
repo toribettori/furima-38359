@@ -28,7 +28,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'post_codeは「3桁ハイフン4桁」の半角文字列のみ保存可能なこと' do
         @purchase_address.post_code = '1234567'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@purchase_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'municipalityが空だと購入できない' do
         @purchase_address.municipality = ''
@@ -48,17 +48,17 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'phoneは9桁以下だと購入できない' do
         @purchase_address.phone = '123456789'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone is invalid")
+        expect(@purchase_address.errors.full_messages).to include('Phone is invalid')
       end
       it 'phoneは12桁以上だと購入できない' do
         @purchase_address.phone = '123456789123'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone is invalid")
+        expect(@purchase_address.errors.full_messages).to include('Phone is invalid')
       end
       it 'phoneは半角数字以外が含まれている場合だと購入できない' do
         @purchase_address.phone = '090-1234'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone is invalid")
+        expect(@purchase_address.errors.full_messages).to include('Phone is invalid')
       end
       it 'area_idに「1」が選択されている場合は出品できない' do
         @purchase_address.area_id = '1'

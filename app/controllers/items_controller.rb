@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all.order(created_at: :desc)
   end
+
   def new
     @item = Item.new
   end
@@ -23,11 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.purchase.present?
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.purchase.present?
   end
-  
+
   def update
     if @item.update(item_params)
       redirect_to item_path(params[:id])
@@ -39,20 +38,20 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     redirect_to root_path
-  end  
-   
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:item_name, :category_id, :situation_id, :delivery_charge_id, :area_id, :delivery_date_id, :explanation, :price, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:item_name, :category_id, :situation_id, :delivery_charge_id, :area_id, :delivery_date_id,
+                                 :explanation, :price, :image).merge(user_id: current_user.id)
   end
 
   def item_find
     @item = Item.find(params[:id])
-  end  
+  end
 
   def different_user
     redirect_to root_path unless current_user.id == @item.user_id
   end
-
 end
